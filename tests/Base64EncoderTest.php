@@ -12,6 +12,6 @@ class Base64EncoderTest extends TestCase
         $file_path = __DIR__ . '/storage/base64_before';
         $expect = file_get_contents(__DIR__ . '/storage/base64_after');
 
-        $this->assertSame($expect, (new Base64Encoder)->encode($file_path));
+        $this->assertEquals($expect, (new Base64Encoder)->encode($file_path));
     }
 }
