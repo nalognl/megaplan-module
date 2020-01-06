@@ -28,14 +28,7 @@ class AuthRequest
 
     private function getAuthDataFromMegaplan(): stdClass
     {
-        $curl = new CurlRequest($this->url, $this->headers);
-
-        try {
-            return $curl->post($this->params);
-        } catch (Exception | TypeError | Error $e) {
-            tiny_log($e->getMessage());
-            return new stdClass;
-        }
+        return (new CurlRequest($this->url, $this->headers))->post($this->params);
     }
 
     public function getAuthDataForApi(int $api): stdClass

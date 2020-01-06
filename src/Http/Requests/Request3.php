@@ -2,12 +2,8 @@
 
 namespace Nalognl\MegaplanModule\Http\Requests;
 
-use Error;
-use Exception;
 use Nalognl\MegaplanModule\Http\CurlRequest;
-use ParseError;
 use stdClass;
-use TypeError;
 
 class Request3 implements Request
 {
@@ -25,6 +21,7 @@ class Request3 implements Request
      * @param string $uri
      * @param array|null $params
      * @return \stdClass|null Response from megaplan
+     * @throws \Exception
      */
     public function get(string $uri, ?array $params = null): ?stdClass
     {
@@ -35,6 +32,7 @@ class Request3 implements Request
      * @param string $uri
      * @param array $params GET-параметры
      * @return \stdClass|null Response from megaplan
+     * @throws \Exception
      */
     public function post(string $uri, array $params = null): ?stdClass
     {
@@ -46,17 +44,12 @@ class Request3 implements Request
      * @param string $uri
      * @param array|null $params
      * @return \stdClass Response from megaplan
+     * @throws \Exception
      */
     private function send(string $method, string $uri, array $params = null): stdClass
     {
         $headers = ["AUTHORIZATION: Bearer $this->access_token"];
-
-        try {
-            $curl = new CurlRequest($uri, $headers);
-            return $method === 'POST' ? $curl->post($params) : $curl->get();
-        } catch (Exception | TypeError | Error | ParseError $e) {
-            tiny_log("api3 error while getting token. {$e->getMessage()}", 'error');
-            return new stdClass;
-        }
+        $curl = new CurlRequest($uri, $headers);
+        return $method === 'POST' ? $curl->post($params) : $curl->get();
     }
 }

@@ -43,7 +43,6 @@ class RequestMegaplan
                 ? "$error_message что-то пошло не так. Мегаплан ответил: " . json_encode($err, JSON_UNESCAPED_UNICODE)
                 : "$error_message что-то пошло не так. Мегаплан ответил: $err";
 
-            tiny_log($message);
             throw new Exception($message);
         }
     }
