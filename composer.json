@@ -1,0 +1,30 @@
+{
+    "name": "nalognl/megaplan-module",
+    "description": "Cache, authentication and request handlers for nalognl_megaplan and nalognl_new_deal plugins.",
+    "homepage": "https://github.com/nalognl/megaplan-module",
+    "keywords": ["megaplan", "library"],
+    "type": "library",
+    "require": {
+        "php": "^7.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.5"
+    },
+    "authors": [
+        {
+            "name": "nalog.nl",
+            "email": "info@nalog.nl"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Nalognl\\MegaplanModule\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Nalognl\\Tests\\": "tests"
+        }
+    },
+    "minimum-stability": "dev"
+}
