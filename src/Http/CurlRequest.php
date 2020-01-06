@@ -3,6 +3,7 @@
 namespace Nalognl\MegaplanModule\Http;
 
 use Exception;
+use Nalognl\MegaplanModule\Config;
 use stdClass;
 
 class CurlRequest
@@ -60,7 +61,7 @@ class CurlRequest
      */
     private function send(string $method, $params = ''): stdClass
     {
-        $host = getenv('NNND_HOST');
+        $host = Config::new()->get('megaplan_host');
         $ch = curl_init("https://{$host}{$this->uri}");
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

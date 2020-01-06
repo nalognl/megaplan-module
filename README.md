@@ -7,10 +7,15 @@ Cache, authentication and request handlers for nalognl_megaplan and nalognl_new_
 Load configurations in your boot file by calling `load()` method.
 
 ```php
-\Nalognl\MegaplanModule\Config::getInstance()->load([
+\Nalognl\MegaplanModule\Config::new()->load([
     'plugin_path' => '/var/www/html/wp-content/plugins/nalognl_megaplan',
+    'megaplan_host' => getenv('NNND_HOST'),
 ]);
 ```
+
+## Plugin must have
+
+Plugin must have directories `storage` and `storage/cache`.
 
 ## Get started
 

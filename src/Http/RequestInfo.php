@@ -6,7 +6,6 @@ use Exception;
 
 class RequestInfo
 {
-
     /** @var array Список параметров */
     protected $params;
 

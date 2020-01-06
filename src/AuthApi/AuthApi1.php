@@ -3,11 +3,16 @@
 namespace Nalognl\MegaplanModule\AuthApi;
 
 use Exception;
+use Nalognl\MegaplanModule\Config;
 use Nalognl\MegaplanModule\Http\Requests\Request;
 use Nalognl\MegaplanModule\Http\Requests\Request1;
 
 class AuthApi1 extends AuthApi
 {
+    /**
+     * @return \Nalognl\MegaplanModule\Http\Requests\Request
+     * @throws \Exception
+     */
     public function getRequest(): Request
     {
         $this->login(AuthApi::API1);
@@ -18,6 +23,8 @@ class AuthApi1 extends AuthApi
             throw new Exception("Authentication failed. {$resp->status->message}");
         }
 
-        return new Request1($resp->data->AccessId, $resp->data->SecretKey, getenv('NNND_HOST'));
+        $megaplan_host = Config::new()->get('megaplan_host');
+
+        return new Request1($resp->data->AccessId, $resp->data->SecretKey, $megaplan_host);
     }
 }

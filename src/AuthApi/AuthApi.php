@@ -3,6 +3,7 @@
 namespace Nalognl\MegaplanModule\AuthApi;
 
 use Nalognl\MegaplanModule\AuthCache;
+use Nalognl\MegaplanModule\Config;
 use Nalognl\MegaplanModule\Http\AuthRequest;
 use stdClass;
 
@@ -32,10 +33,16 @@ class AuthApi
      * megaplan in order to take them and save to cache.
      *
      * @param int $api
+     * @throws \Exception
      */
     protected function login(int $api): void
     {
-        $cache_path = $api === self::API1 ? NNND_AUTH1_CACHE : NNND_AUTH3_CACHE;
+        $path = Config::new()->get('plugin_path');
+
+        $cache1 = "$path/storage/cache/auth1";
+        $cache3 = "$path/storage/cache/auth3";
+
+        $cache_path = $api === self::API1 ? $cache1 : $cache3;
         $cache = new AuthCache($cache_path);
 
         if ($cache->has()) {
