@@ -3,6 +3,7 @@
     "description": "Cache, authentication and request handlers for nalognl_megaplan and nalognl_new_deal plugins.",
     "homepage": "https://github.com/nalognl/megaplan-module",
     "keywords": ["megaplan", "library"],
+    "license": "MIT",
     "type": "library",
     "require": {
         "php": "^7.2",
