@@ -19,6 +19,24 @@ Also your WordPress plugin must have directories `storage` and `storage/cache`.
 ]);
 ```
 
+## Usage
+
+#### Megaplan request
+
+You need to have RequestMegaplan1.php and RequestMegaplan3.php for both APIs. They must extend `Nalognl\MegaplanModule\Http\RequestMegaplan\RequestMegaplan` class, it gives you `post()`, `get()` and `throwIfError()` methods. Your methods will look something like that:
+
+```php
+public function getOffers(array $data): array
+{
+    $uri = getenv('NNND_OFFERS_LIST_URI');
+
+    $res = $this->request->post($uri, $data);
+    $this->throwIfError($res, 'API1: При попытке взять товары с мегаплана');
+
+    return $res->data->offers;
+}
+```
+
 ## Get started
 
 ```bash
