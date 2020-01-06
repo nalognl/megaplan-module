@@ -5,7 +5,9 @@ namespace Nalognl\MegaplanModule\Http;
 use Error;
 use Exception;
 use Nalognl\MegaplanModule\AuthApi\AuthApi;
+use Nalognl\MegaplanModule\Config;
 use stdClass;
+use TypeError;
 
 class AuthRequest
 {
@@ -45,12 +47,12 @@ class AuthRequest
 
     public function getAuthDataForApi1(): stdClass
     {
-        $login = getenv('NNND_LOGIN');
-        $pwd = getenv('NNND_MD5_HASH_PASSWORD');
+        $login = Config::new()->get('megaplan_login');
+        $pwd = Config::new()->get('megaplan_hash_password');
 
         $this->headers = ['Content-Type: application/x-www-form-urlencoded'];
         $this->params = "Login=$login&Password=$pwd";
-        $this->url = getenv('NNND_AUTH_URI');
+        $this->url = Config::new()->get('megaplan_api1_auth_uri');
 
         return $this->getAuthDataFromMegaplan();
     }
@@ -59,11 +61,11 @@ class AuthRequest
     {
         $this->headers = ['Content-Type: multipart/form-data'];
         $this->params = [
-            'username' => getenv('NNND_LOGIN'),
-            'password' => getenv('NNND_PASSWORD'),
+            'username' => Config::new()->get('megaplan_login'),
+            'password' => Config::new()->get('megaplan_password'),
             'grant_type' => 'password',
         ];
-        $this->url = getenv('NNND_API3_AUTH_URI');
+        $this->url = Config::new()->get('megaplan_api3_auth_uri');
 
         return $this->getAuthDataFromMegaplan();
     }

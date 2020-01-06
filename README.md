@@ -10,6 +10,11 @@ Load configurations in your boot file by calling `load()` method.
 \Nalognl\MegaplanModule\Config::new()->load([
     'plugin_path' => '/var/www/html/wp-content/plugins/nalognl_megaplan',
     'megaplan_host' => getenv('NNND_HOST'),
+    'megaplan_login' => getenv('NNND_LOGIN'),
+    'megaplan_password' => getenv('NNND_PASSWORD'),
+    'megaplan_hash_password' => getenv('NNND_MD5_HASH_PASSWORD'),
+    'megaplan_api1_auth_uri' => getenv('NNND_AUTH_URI'),
+    'megaplan_api3_auth_uri' => getenv('NNND_API3_AUTH_URI'),
 ]);
 ```
 
