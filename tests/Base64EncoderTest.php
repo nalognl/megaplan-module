@@ -10,8 +10,10 @@ class Base64EncoderTest extends TestCase
     public function getEncoded_returns_encoded_string(): void
     {
         $file_path = __DIR__ . '/storage/base64_before';
-        $expect = file_get_contents(__DIR__ . '/storage/base64_after');
 
-        $this->assertEquals($expect, (new Base64Encoder)->encode($file_path));
+        $expect = preg_replace("/[\r]/", '', file_get_contents(__DIR__ . '/storage/base64_after'));
+        $result = preg_replace("/[\r]/", '', (new Base64Encoder)->encode($file_path));
+
+        $this->assertEquals($expect, $result);
     }
 }
