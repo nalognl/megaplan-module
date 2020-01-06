@@ -2,7 +2,6 @@
 
 namespace Nalognl\MegaplanModule\Tests;
 
-use Nalognl\MegaplanModule\Config;
 use PHPUnit\Framework\TestCase as PHPUnit;
 use ReflectionClass;
 

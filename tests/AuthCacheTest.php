@@ -6,7 +6,7 @@ use Nalognl\MegaplanModule\AuthCache;
 
 final class AuthCacheTest extends TestCase
 {
-    public $file_name = NNND_PATH . 'storage/cache/test-file';
+    public $file_name = __DIR__ . '/storage/test-file';
 
     public function tearDown(): void
     {

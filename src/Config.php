@@ -22,7 +22,7 @@ class Config
      * @see https://en.wikipedia.org/wiki/Singleton_pattern
      * @return $this|\Nalognl\MegaplanModule\Config|null
      */
-    public static function getInstance()
+    public static function new()
     {
         return static::$instance ?? (static::$instance = new static());
     }
@@ -35,10 +35,16 @@ class Config
     public function get(string $config_key)
     {
         if (is_null($this->config)) {
-            throw new Exception('Configurations were not load. See https://github.com/nalognl/megaplan-module/blob/master/README.md');
+            throw new Exception('Configurations were not load.');
         }
 
-        return $this->config[$config_key];
+        $value = $this->config[$config_key] ?? null;
+
+        if (is_null($value)) {
+            throw new Exception('Configurations are loaded but key has not found');
+        }
+
+        return $value;
     }
 
     /**
