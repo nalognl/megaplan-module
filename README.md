@@ -1,5 +1,9 @@
 <h1 align="center">Megaplan module WordPress plugin module</h1>
 
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fnalognl%2Fmegaplan-module%2Fbadge&style=flat)](https://actions-badge.atrox.dev/nalognl/megaplan-module/goto)
+[![Total Downloads](https://poser.pugx.org/nalognl/megaplan-module/downloads)](https://packagist.org/packages/nalognl/megaplan-module)
+[![Latest Stable Version](https://poser.pugx.org/nalognl/megaplan-module/v/stable)](https://packagist.org/packages/nalognl/megaplan-module)
+
 Cache, authentication and request handlers for nalognl_megaplan and nalognl_new_deal plugins.
 
 ## Load configurations
