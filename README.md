@@ -4,7 +4,7 @@
 [![Total Downloads](https://poser.pugx.org/nalognl/megaplan-module/downloads)](https://packagist.org/packages/nalognl/megaplan-module)
 [![Latest Stable Version](https://poser.pugx.org/nalognl/megaplan-module/v/stable)](https://packagist.org/packages/nalognl/megaplan-module)
 
-Cache, authentication and request handlers for nalognl_megaplan and nalognl_new_deal plugins.
+Cache, authentication and request handlers for `nalognl_megaplan` and `nalognl_new_deal` **WordPress** plugins. These 2 plugins have common functionality, and in order to not repeat the same code in both plugins this package was created. It contains **Megaplan authentication functionality* and *caching*.
 
 ## Load configurations
 
