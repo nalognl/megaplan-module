@@ -43,6 +43,8 @@ public function getOffers(array $data): array
 
 ## Get started
 
+To install the package you need to have [Composer PHP package manager](https://getcomposer.org) installed on your machine. Then you need to run the command below in the plugin directory.
+
 ```bash
 composer require nalognl/megaplan-module
 ```
