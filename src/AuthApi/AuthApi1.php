@@ -20,7 +20,7 @@ class AuthApi1 extends AuthApi
         $resp = $this->auth_data;
 
         if (!$resp || $resp->status->code !== 'ok') {
-            throw new Exception("Authentication failed. {$resp->status->message}");
+            throw new Exception("API1: Authentication failed. Check your .env file for correct credentials or delete megaplan authorization cache. Error: {$resp->status->message}");
         }
 
         $megaplan_host = Config::new()->get('megaplan_host');
