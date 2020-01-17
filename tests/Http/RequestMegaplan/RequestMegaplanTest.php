@@ -95,4 +95,13 @@ final class RequestMegaplanTest extends TestCase
             $this->fail('Exception should not be thrown if status code is 200');
         }
     }
+
+    /** @test */
+    public function getEvnOrThrow_throws_exception_if_env_has_not_been_found(): void
+    {
+        $this->expectException(Exception::class);
+
+        $subject = new RequestMegaplan($this->createMock(AuthApi1::class));
+        (new Proxy($subject))->getEnvOrThrow('');
+    }
 }
