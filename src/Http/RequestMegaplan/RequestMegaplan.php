@@ -46,4 +46,20 @@ class RequestMegaplan
             throw new Exception($message);
         }
     }
+
+    /**
+     * @param string $env_var
+     * @return string
+     * @throws \Exception
+     */
+    protected function getEnvOrThrow(string $env_var): string
+    {
+        $env = getenv($env_var);
+
+        if (!$env) {
+            throw new Exception("Cannot find env variable '$env_var' in your .env file");
+        }
+
+        return $env;
+    }
 }
