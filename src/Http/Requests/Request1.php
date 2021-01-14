@@ -42,8 +42,8 @@ class Request1 implements Request
      * @param string $access_id Идентификатор пользователя
      * @param string $secret_key Секретный ключ
      * @param string $host Имя хоста мегаплана
-     * @param bool $https Использовать SSL-соединение (true)
-     * @param int $timeout Таймаут подключения
+     * @param bool|null $https Использовать SSL-соединение (true)
+     * @param int|null $timeout Таймаут подключения
      */
     public function __construct(
         string $access_id,
