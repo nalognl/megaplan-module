@@ -9,8 +9,8 @@ use stdClass;
 
 class AuthApi
 {
-    const API1 = 1;
-    const API3 = 3;
+    public const API1 = 1;
+    public const API3 = 3;
 
     /**
      * @var stdClass|null

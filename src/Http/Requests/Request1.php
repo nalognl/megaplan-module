@@ -2,6 +2,7 @@
 
 namespace Nalognl\MegaplanModule\Http\Requests;
 
+use Exception;
 use Nalognl\MegaplanModule\Http\RequestInfo;
 use stdClass;
 
@@ -42,8 +43,8 @@ class Request1 implements Request
      * @param string $access_id Идентификатор пользователя
      * @param string $secret_key Секретный ключ
      * @param string $host Имя хоста мегаплана
-     * @param bool $https Использовать SSL-соединение (true)
-     * @param int $timeout Таймаут подключения
+     * @param bool|null $https Использовать SSL-соединение (true)
+     * @param int|null $timeout Таймаут подключения
      */
     public function __construct(
         string $access_id,
@@ -83,7 +84,7 @@ class Request1 implements Request
      * Отправляет GET-запрос
      *
      * @param string $uri
-     * @param array $params GET-параметры
+     * @param array|null $params GET-параметры
      * @return \stdClass|null Ответ на запрос
      * @throws \Exception
      */
@@ -102,7 +103,7 @@ class Request1 implements Request
      * Отправляет POST-запрос
      *
      * @param string $uri
-     * @param array $params GET-параметры
+     * @param array $params|null GET-параметры
      * @return \stdClass|null Ответ на запрос
      * @throws \Exception
      */
@@ -125,7 +126,7 @@ class Request1 implements Request
      * Собирает строку запроса из URI и параметров
      *
      * @param string $uri URI
-     * @param array $params Параметры запроса
+     * @param array|null $params Параметры запроса
      * @return string
      */
     public function processUri(string $uri, array $params = null): string
@@ -172,13 +173,15 @@ class Request1 implements Request
             $headers[] = 'Content-MD5: '.$request->ContentMD5;
         }
 
-        $ch = curl_init($this->generateUrl($request));
+        $url = $this->generateUrl($request);
+
+        $ch = curl_init($url);
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_USERAGENT, __CLASS__);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $request->Method);
 
-        if ($request->Method == 'POST') {
+        if ($request->Method === 'POST') {
             curl_setopt($ch, CURLOPT_POST, true);
 
             if ($request->PostFields) {
@@ -209,10 +212,7 @@ class Request1 implements Request
         if ($this->output_file && isset($fh)) {
             curl_exec($ch);
             $this->result = null;
-
-            if (isset($fh)) {
-                fclose($fh);
-            }
+            fclose($fh);
         } else {
             $this->result = curl_exec($ch);
         }
@@ -221,6 +221,10 @@ class Request1 implements Request
         $this->error = curl_error($ch);
 
         curl_close($ch);
+
+        if (!is_string($this->result)) {
+            throw new Exception("The response from $url can't be decoded because it's not a string.");
+        }
 
         return json_decode($this->result);
     }
@@ -240,9 +244,7 @@ class Request1 implements Request
             $request->Date."\n".
             $request->Host.$request->Uri;
 
-        $signature = base64_encode(self::hashHmac('sha1', $stringToSign, $secret_key));
-
-        return $signature;
+        return base64_encode(self::hashHmac('sha1', $stringToSign, $secret_key));
     }
 
     /**
@@ -271,8 +273,8 @@ class Request1 implements Request
             : str_pad($key, $size, chr(0x00));
 
         for ($i = 0; $i < strlen($key) - 1; $i++) {
-            $opad[$i] = $opad[$i] ^ $key[$i];
-            $ipad[$i] = $ipad[$i] ^ $key[$i];
+            $opad[$i] ^= $key[$i];
+            $ipad[$i] ^= $key[$i];
         }
 
         $output = $algo($opad.pack($pack, $algo($ipad.$data)));
@@ -294,10 +296,10 @@ class Request1 implements Request
      * Возвращает информацию о последнем запросе
      * Возвращает информацию о последнем запросе
      *
-     * @param string $param Параметр запроса (если не указан, возвращается вся информация)
+     * @param string|null $param Параметр запроса (если не указан, возвращается вся информация)
      * @return mixed
      */
-    public function getInfo($param = null)
+    public function getInfo(?string $param = null)
     {
         if ($param) {
             return $this->info[$param] ?? null;

@@ -30,11 +30,11 @@ class Request3 implements Request
 
     /**
      * @param string $uri
-     * @param array $params GET-параметры
+     * @param array|null $params GET-параметры
      * @return \stdClass|null Response from megaplan
      * @throws \Exception
      */
-    public function post(string $uri, array $params = null): ?stdClass
+    public function post(string $uri, ?array $params = null): ?stdClass
     {
         return $this->send('POST', $uri, $params);
     }
