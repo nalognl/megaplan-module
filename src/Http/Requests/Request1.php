@@ -2,6 +2,7 @@
 
 namespace Nalognl\MegaplanModule\Http\Requests;
 
+use Exception;
 use Nalognl\MegaplanModule\Http\RequestInfo;
 use stdClass;
 
@@ -172,7 +173,9 @@ class Request1 implements Request
             $headers[] = 'Content-MD5: '.$request->ContentMD5;
         }
 
-        $ch = curl_init($this->generateUrl($request));
+        $url = $this->generateUrl($request);
+
+        $ch = curl_init($url);
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_USERAGENT, __CLASS__);
@@ -218,6 +221,10 @@ class Request1 implements Request
         $this->error = curl_error($ch);
 
         curl_close($ch);
+
+        if (!is_string($this->result)) {
+            throw new Exception("The response from $url can't be decoded because it's not a string.");
+        }
 
         return json_decode($this->result);
     }
