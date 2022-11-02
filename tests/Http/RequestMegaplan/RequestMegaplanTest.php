@@ -34,8 +34,8 @@ final class RequestMegaplanTest extends TestCase
     /** @test */
     public function throwIfError_throws_with_error_message_that_contains_status_error_from_response(): void
     {
-        $this->expectExceptionMessageRegExp('/^Prefix of the exception message/');
-        $this->expectExceptionMessageRegExp('/Error message is here$/');
+        $this->expectExceptionMessageMatches('/^Prefix of the exception message/');
+        $this->expectExceptionMessageMatches('/Error message is here$/');
 
         $subject = new RequestMegaplan($this->createMock(AuthApi1::class));
         $response = (object) ['status' => (object) [
@@ -54,8 +54,8 @@ final class RequestMegaplanTest extends TestCase
         $errors = ['message' => 'Error message is here'];
         $encoded = json_encode($errors, JSON_UNESCAPED_UNICODE);
 
-        $this->expectExceptionMessageRegExp('/^Prefix of the exception message/');
-        $this->expectExceptionMessageRegExp(sprintf("/%s$/", $encoded));
+        $this->expectExceptionmessageMatches('/^Prefix of the exception message/');
+        $this->expectExceptionmessageMatches(sprintf("/%s$/", $encoded));
 
         $subject = new RequestMegaplan($this->createMock(AuthApi1::class));
         $response = (object) ['meta' => (object) [
