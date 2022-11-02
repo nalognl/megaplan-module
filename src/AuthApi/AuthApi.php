@@ -37,10 +37,7 @@ class AuthApi
      */
     protected function login(int $api): void
     {
-        $path = Config::new()->get('plugin_path');
-
-        $cache1 = "$path/storage/cache/auth1";
-        $cache3 = "$path/storage/cache/auth3";
+        [$cache1, $cache3] = $this->getPaths();
 
         $cache_path = $api === self::API1 ? $cache1 : $cache3;
         $cache = new AuthCache($cache_path);
@@ -51,5 +48,24 @@ class AuthApi
             $this->auth_data = $this->auth_request->getAuthDataForApi($api);
             $cache->put($this->auth_data);
         }
+    }
+
+    private function getPaths(): array
+    {
+        $cache_path = Config::new()->get('cache_dir_path');
+
+        if ($cache_path) {
+            return [
+                "{$cache_path}/auth1",
+                "{$cache_path}/auth3",
+            ];
+        }
+
+        $path = Config::new()->get('plugin_path');
+
+        return [
+            "{$path}/storage/cache/auth1",
+            "{$path}/storage/cache/auth3",
+        ];
     }
 }

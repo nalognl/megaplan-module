@@ -14,6 +14,7 @@ Also your WordPress plugin must have directories `storage` and `storage/cache`.
 ```php
 \Nalognl\MegaplanModule\Config::new()->load([
     'plugin_path' => '/var/www/html/wp-content/plugins/nalognl_megaplan',
+    'cache_dir_path' => '/var/www/uploads/global-storage/cache',
     'megaplan_host' => getenv('NNND_HOST'),
     'megaplan_login' => getenv('NNND_LOGIN'),
     'megaplan_password' => getenv('NNND_PASSWORD'),
