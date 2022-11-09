@@ -52,16 +52,18 @@ class AuthApi
 
     private function getPaths(): array
     {
-        $cache_path = Config::new()->get('cache_dir_path');
+        $config = Config::new();
 
-        if ($cache_path) {
+        if ($config && $config->has('cache_dir_path')) {
+            $cache_path = $config->get('cache_dir_path');
+
             return [
                 "{$cache_path}/auth1",
                 "{$cache_path}/auth3",
             ];
         }
 
-        $path = Config::new()->get('plugin_path');
+        $path = $config->get('plugin_path');
 
         return [
             "{$path}/storage/cache/auth1",

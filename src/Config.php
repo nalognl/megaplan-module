@@ -47,6 +47,11 @@ class Config
         return $value;
     }
 
+    public function has(string $config_key): bool
+    {
+        return $this->config && isset($this->config[$config_key]);
+    }
+
     /**
      * Loads array of configurations
      *
